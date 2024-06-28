@@ -4,16 +4,9 @@ import { useRouter } from 'vue-router'
 import { usePostListStore } from '@/stores/postList'
 import VPost from '@/components/VPost.vue'
 
-interface Post {
-  id: number
-  title: string
-  body: string
-  createdAt: date
-}
-
 const router = useRouter()
+
 const postListStore = usePostListStore()
-const postList = ref<Post[]>([])
 
 const handleAddPost = () => {
   router.push('/addPost')
@@ -23,9 +16,8 @@ const toPost = (id: number) => {
   router.push('/post/' + id)
 }
 
-onMounted(async () => {
-  await postListStore.fetchPosts()
-  postList.value = postListStore.postList as Post[]
+onMounted(() => {
+  postListStore.fetchPosts()
 })
 </script>
 
