@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import PostList from '@/components/PostList.vue'
+import AddPost from '@/components/AddPost.vue'
 </script>
 
 <template>
-  <post-list />
+  <add-post />
 </template>
 
 <style lang="scss" scoped></style>
