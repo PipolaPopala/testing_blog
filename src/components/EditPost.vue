@@ -44,8 +44,8 @@ const onSubmit = handleSubmit(() => {
 })
 
 onMounted(() => {
-  const postId = route.params.id
-  const existingPost = postListStore.postList.find((post) => post.id == postId)
+  const postId = Number(route.params.id)
+  const existingPost = postListStore.postList.find((post) => post.id === postId)
   if (existingPost) {
     title.value = existingPost.title
     body.value = existingPost.body
