@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { usePostListStore } from '@/stores/postList'
 import VPost from '@/components/VPost.vue'
@@ -7,6 +7,8 @@ import VPost from '@/components/VPost.vue'
 const router = useRouter()
 
 const postListStore = usePostListStore()
+
+const page = ref(1)
 
 const handleAddPost = () => {
   router.push('/addPost')
@@ -17,7 +19,11 @@ const toPost = (id: number) => {
 }
 
 onMounted(() => {
-  postListStore.fetchPosts()
+  postListStore.fetchPosts(page.value)
+})
+
+watch(page, () => {
+  postListStore.fetchPosts(page.value)
 })
 </script>
 
@@ -35,6 +41,14 @@ onMounted(() => {
       @click="toPost(post.id)"
     ></v-post>
   </div>
+  <div class="text-center">
+    <v-pagination
+      v-model="page"
+      :length="postListStore.postListMeta.total_pages"
+      :total-visible="6"
+      class="text-white"
+    ></v-pagination>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -47,5 +61,6 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 </style>
