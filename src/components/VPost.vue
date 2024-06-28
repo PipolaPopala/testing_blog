@@ -12,7 +12,7 @@ const postListStore = usePostListStore()
 
 const handleDelete = async (id: number) => {
   await axios.delete(`https://6382fd8fc5a5d312.mokky.dev/posts/${id}`)
-  postListStore.fetchPosts()
+  postListStore.fetchPosts(1)
   router.push('/')
 }
 
